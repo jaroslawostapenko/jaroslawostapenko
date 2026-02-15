@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://jaroslawostapenko.github.io/jaroslawostapenko.com/</loc>
+    <loc>https://jaroslawostapenko.mqttwebs.com/</loc>
     <image:image>
-      <image:loc>https://jaroslawostapenko.github.io/jaroslawostapenko.com/IMG_20251029_104602.webp</image:loc>
-      <image:title>Yaroslav Ostapenko - Full Stack Developer</image:title>
-      <image:caption>Portfolio photo of Yaroslav Ostapenko, Full Stack Developer from Kraków</image:caption>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/IMG_20251029_104602.webp</image:loc>
+      <image:title>Yaroslav Ostapenko - Junior Frontend Developer</image:title>
+      <image:caption>Portfolio photo of Yaroslav Ostapenko, Junior Frontend Developer from Kraków</image:caption>
     </image:image>
   </url>
 </urlset>

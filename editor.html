@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cosmic IDE v2.0 | Yaroslav Ostapenko</title>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* 
+         * ==========================================
+         *  THEME SYSTEM & VARIABLES
+         * ==========================================
+         */
+        :root {
+            /* Cosmic Dark Theme */
+            --app-bg: #050508;
+            --sidebar-bg: #09090c;
+            --activity-bg: #020203;
+            --panel-bg: #0b0b10;
+            --editor-bg: #08080b;
+            --titlebar-bg: #050508;
+            
+            /* Borders */
+            --border-subtle: #1f1f2e;
+            --border-light: #2d2d42;
+            --border-focus: #4c4c68;
+            
+            /* Accents */
+            --accent-primary: #7c3aed; /* Violet */
+            --accent-hover: #6d28d9;
+            --accent-secondary: #db2777; /* Pink */
+            --accent-tertiary: #2563eb; /* Blue */
+            --accent-success: #22c55e;
+            --accent-warning: #eab308;
+            --accent-danger: #ef4444;
+            --accent-glow: rgba(124, 58, 237, 0.15);
+            
+            /* Text */
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --text-inverse: #ffffff;
+            
+            /* Syntax Highlighting Tokens */
+            --tok-comment: #676e95;
+            --tok-keyword: #c084fc;    /* Purple */
+            --tok-string: #a3e635;     /* Lime */
+            --tok-function: #60a5fa;   /* Blue */
+            --tok-class: #fbbf24;      /* Amber */
+            --tok-variable: #e2e8f0;   /* White */
+            --tok-number: #2dd4bf;     /* Teal */
+            --tok-operator: #818cf8;   /* Indigo */
+            --tok-tag: #f87171;        /* Red */
+            --tok-attr: #c4b5fd;       /* Violet Light */
+            
+            /* UI Metrics */
+            --font-ui: 'Inter', system-ui, sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+            --header-height: 35px;
+            --status-height: 24px;
+            --activity-width: 50px;
+            --sidebar-width: 260px; /* Default */
+            
+            /* Shadows & Glass */
+            --shadow-float: 0 10px 40px -10px rgba(0,0,0,0.6);
+            --glass-bg: rgba(11, 11, 16, 0.8);
+            --glass-border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        * { box-sizing: border-box; outline: none; }
+        
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--app-bg);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            height: 100vh; width: 100vw;
+            overflow: hidden;
+            display: flex; flex-direction: column;
+            user-select: none;
+        }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-corner { background: transparent; }
+        ::-webkit-scrollbar-thumb { 
+            background: #27273a; 
+            border-radius: 5px; 
+            border: 2px solid var(--app-bg); 
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f5a; }
+
+        /* ================= LAYOUT GRID ================= */
+
+        /* 1. Title Bar */
+        #titlebar {
+            height: var(--header-height);
+            background: var(--titlebar-bg);
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 12px; font-size: 13px; z-index: 50;
+            -webkit-app-region: drag;
+        }
+        .app-brand { display: flex; align-items: center; gap: 8px; font-weight: 600; color: var(--text-main); }
+        .app-icon { color: var(--accent-primary); filter: drop-shadow(0 0 8px var(--accent-glow)); }
+        .menubar { display: flex; gap: 4px; margin-left: 20px; }
+        .menu-btn { 
+            padding: 2px 8px; border-radius: 4px; color: var(--text-muted); cursor: pointer; transition: 0.2s; 
+            -webkit-app-region: no-drag;
+        }
+        .menu-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-main); }
+
+        /* 2. Main Workbench Area */
+        #workbench {
+            flex-grow: 1; display: flex; overflow: hidden; position: relative;
+        }
+
+        /* Activity Bar (Left Strip) */
+        #activity-bar {
+            width: var(--activity-width);
+            background: var(--activity-bg);
+            border-right: 1px solid var(--border-subtle);
+            display: flex; flex-direction: column; align-items: center;
+            padding-top: 10px; z-index: 40;
+        }
+        .activity-item {
+            width: 42px; height: 42px;
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 8px; border-radius: 8px; cursor: pointer;
+            color: var(--text-dim); transition: 0.2s; position: relative;
+        }
+        .activity-item:hover { color: var(--text-main); }
+        .activity-item.active { color: var(--text-main); }
+        .activity-item.active::before {
+            content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px;
+            background: var(--accent-primary); border-radius: 0 2px 2px 0;
+        }
+
+        /* Sidebar Container */
+        #sidebar {
+            width: var(--sidebar-width);
+            min-width: 150px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border-subtle);
+            display: flex; flex-direction: column;
+            transition: width 0.05s ease; /* Smooth toggle, snappy resize */
+        }
+        .sidebar-title {
+            height: 35px; padding: 0 16px;
+            display: flex; align-items: center; justify-content: space-between;
+            text-transform: uppercase; font-size: 11px; font-weight: 700;
+            color: var(--text-dim); letter-spacing: 0.5px;
+        }
+        .sidebar-actions i { cursor: pointer; margin-left: 8px; transition: 0.2s; }
+        .sidebar-actions i:hover { color: var(--text-main); }
+
+        /* File Explorer */
+        #explorer-content { flex-grow: 1; overflow-y: auto; padding-top: 4px; }
+        .file-node {
+            display: flex; align-items: center;
+            padding: 3px 0 3px 14px;
+            font-size: 13px; color: var(--text-muted); cursor: pointer;
+            border-left: 2px solid transparent; transition: 0.1s;
+        }
+        .file-node:hover { background: rgba(255,255,255,0.03); color: var(--text-main); }
+        .file-node.active { 
+            background: rgba(124, 58, 237, 0.1); color: var(--text-main);
+            border-left-color: var(--accent-primary);
+        }
+        .node-indent { width: 14px; height: 100%; flex-shrink: 0; }
+        .node-icon { margin-right: 6px; width: 16px; display: flex; justify-content: center; }
+        .node-chevron { width: 16px; display: flex; justify-content: center; transition: transform 0.2s; }
+        .node-chevron.open { transform: rotate(90deg); }
+
+        /* Resizer Handle */
+        .resizer-h {
+            width: 4px; cursor: col-resize; z-index: 10;
+            position: absolute; top: 0; bottom: 0; right: -2px;
+        }
+        .resizer-h:hover { background: var(--accent-primary); }
+
+        /* Editor Area */
+        #main-editor-area {
+            flex-grow: 1; display: flex; flex-direction: column;
+            background: var(--editor-bg); position: relative; min-width: 0;
+        }
+
+        /* Tabs */
+        #tabs-bar {
+            height: 35px; background: var(--panel-bg);
+            display: flex; overflow-x: auto;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .tab {
+            display: flex; align-items: center;
+            padding: 0 10px 0 12px; min-width: 120px; max-width: 200px;
+            font-size: 12px; color: var(--text-muted);
+            border-right: 1px solid var(--border-subtle);
+            border-top: 2px solid transparent; cursor: pointer;
+            background: var(--panel-bg); position: relative;
+        }
+        .tab:hover { background: var(--editor-bg); }
+        .tab.active { 
+            background: var(--editor-bg); color: var(--text-main);
+            border-top-color: var(--accent-primary);
+        }
+        .tab-close { margin-left: auto; opacity: 0; border-radius: 4px; padding: 2px; }
+        .tab:hover .tab-close { opacity: 1; }
+        .tab-close:hover { background: rgba(255,255,255,0.1); color: var(--text-main); }
+        .tab.unsaved .tab-label::after { content: '●'; font-size: 8px; margin-left: 6px; }
+
+        /* Breadcrumbs */
+        #breadcrumbs {
+            height: 22px; display: flex; align-items: center; padding: 0 16px;
+            font-size: 11px; color: var(--text-dim);
+            background: var(--editor-bg);
+        }
+
+        /* Editor Surface */
+        #editor-surface {
+            flex-grow: 1; position: relative; display: flex; overflow: hidden;
+        }
+        #gutter {
+            width: 55px; flex-shrink: 0;
+            background: var(--editor-bg);
+            border-right: 1px solid var(--border-subtle);
+            color: var(--text-dim);
+            font-family: var(--font-code); font-size: 14px; line-height: 22px;
+            text-align: right; padding: 10px 12px 10px 0;
+            user-select: none;
+        }
+        #code-scroll-container {
+            flex-grow: 1; position: relative; overflow: auto; cursor: text;
+        }
+        .code-layer {
+            position: absolute; top: 0; left: 0; min-width: 100%; min-height: 100%;
+            padding: 10px 10px 10px 10px;
+            font-family: var(--font-code); font-size: 14px; line-height: 22px;
+            white-space: pre; tab-size: 4;
+        }
+        #renderer { z-index: 1; pointer-events: none; color: var(--text-main); }
+        #input-textarea {
+            z-index: 2; background: transparent; color: transparent;
+            border: none; resize: none; overflow: hidden;
+            caret-color: var(--accent-primary);
+        }
+        #input-textarea::selection { background: rgba(124, 58, 237, 0.25); color: transparent; }
+
+        /* Minimap */
+        #minimap {
+            width: 60px; flex-shrink: 0;
+            background: var(--editor-bg); border-left: 1px solid var(--border-subtle);
+            opacity: 0.8; position: relative; overflow: hidden;
+        }
+        #minimap canvas { display: block; width: 100%; }
+        #minimap-slider {
+            position: absolute; left: 0; right: 0; background: rgba(255,255,255,0.05);
+            transition: 0.1s; cursor: grab;
+        }
+        #minimap-slider:hover { background: rgba(255,255,255,0.1); }
+
+        /* Bottom Panel (Terminal) */
+        #bottom-panel {
+            height: 200px; background: var(--panel-bg);
+            border-top: 1px solid var(--border-subtle);
+            display: flex; flex-direction: column; position: relative;
+        }
+        .resizer-v {
+            height: 4px; cursor: row-resize; z-index: 10;
+            position: absolute; top: -2px; left: 0; right: 0;
+        }
+        .resizer-v:hover { background: var(--accent-primary); }
+        
+        .panel-header {
+            height: 30px; display: flex; align-items: center; padding: 0 16px; gap: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .panel-tab {
+            font-size: 11px; font-weight: 600; color: var(--text-dim); cursor: pointer; padding: 7px 0;
+            border-bottom: 1px solid transparent; text-transform: uppercase;
+        }
+        .panel-tab.active { color: var(--text-main); border-bottom-color: var(--accent-secondary); }
+        .panel-actions { margin-left: auto; display: flex; gap: 10px; }
+        
+        #terminal-container {
+            flex-grow: 1; background: #0c0c10; padding: 8px;
+            font-family: var(--font-code); font-size: 13px; overflow-y: auto;
+        }
+        .term-line { display: flex; margin-bottom: 2px; color: var(--text-main); line-height: 1.4; }
+        .term-ps1 { color: var(--accent-success); margin-right: 8px; font-weight: bold; }
+        .term-path { color: var(--accent-tertiary); font-weight: bold; }
+        .term-input { 
+            background: transparent; border: none; color: var(--text-main); 
+            flex-grow: 1; font-family: inherit; font-size: inherit; 
+        }
+        .term-msg-error { color: var(--accent-danger); }
+        .term-msg-info { color: var(--accent-tertiary); }
+        .term-msg-warn { color: var(--accent-warning); }
+
+        /* 3. Status Bar */
+        #statusbar {
+            height: var(--status-height); background: var(--accent-primary); color: white;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 12px; font-size: 11px; font-weight: 500; z-index: 60;
+        }
+        .status-section { display: flex; gap: 15px; align-items: center; }
+        .status-item { cursor: pointer; display: flex; align-items: center; gap: 6px; }
+        .status-item:hover { opacity: 0.8; }
+
+        /* ================= OVERLAYS & MENUS ================= */
+
+        /* Context Menu */
+        .ctx-menu {
+            position: fixed; background: var(--panel-bg);
+            border: 1px solid var(--border-focus); border-radius: 6px;
+            padding: 4px; min-width: 180px;
+            box-shadow: var(--shadow-float); z-index: 1000; display: none;
+        }
+        .ctx-item {
+            padding: 6px 12px; font-size: 12px; color: var(--text-main);
+            border-radius: 4px; cursor: pointer; display: flex; justify-content: space-between;
+        }
+        .ctx-item:hover { background: var(--accent-primary); color: white; }
+        .ctx-sep { height: 1px; background: var(--border-subtle); margin: 4px 0; }
+        .ctx-key { opacity: 0.5; font-size: 10px; }
+
+        /* Command Palette */
+        #palette-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px);
+            z-index: 200; display: none; justify-content: center; padding-top: 80px;
+        }
+        #palette {
+            width: 500px; max-height: 400px; background: var(--panel-bg);
+            border: 1px solid var(--border-focus); border-radius: 8px;
+            box-shadow: var(--shadow-float); display: flex; flex-direction: column;
+            overflow: hidden; animation: slideDown 0.15s ease-out;
+        }
+        @keyframes slideDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+        
+        #palette-search {
+            background: transparent; border: none; padding: 14px;
+            font-size: 16px; color: var(--text-main); border-bottom: 1px solid var(--border-subtle);
+        }
+        #palette-list { overflow-y: auto; padding: 4px; }
+        .pal-item {
+            padding: 8px 12px; font-size: 13px; color: var(--text-muted);
+            border-radius: 4px; cursor: pointer; display: flex; justify-content: space-between;
+        }
+        .pal-item:hover, .pal-item.selected { background: var(--accent-primary); color: white; }
+        .pal-key { font-family: var(--font-code); font-size: 11px; opacity: 0.7; }
+
+        /* Settings Modal */
+        #settings-modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            z-index: 150; display: none; align-items: center; justify-content: center;
+        }
+        #settings-panel {
+            width: 600px; height: 500px; background: var(--panel-bg);
+            border: 1px solid var(--border-focus); border-radius: 8px;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .set-header { padding: 15px 20px; font-size: 16px; font-weight: 600; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between;}
+        .set-body { flex-grow: 1; padding: 20px; overflow-y: auto; }
+        .set-group { margin-bottom: 25px; }
+        .set-title { font-size: 12px; text-transform: uppercase; color: var(--text-dim); font-weight: 700; margin-bottom: 10px; }
+        .set-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .set-label { font-size: 13px; color: var(--text-main); }
+        .set-input { 
+            background: var(--activity-bg); border: 1px solid var(--border-subtle); 
+            color: var(--text-main); padding: 4px 8px; border-radius: 4px; font-size: 12px;
+        }
+        .set-check { accent-color: var(--accent-primary); }
+
+        /* Syntax Highlight Colors */
+        .tok-kw { color: var(--tok-keyword); font-weight: bold; }
+        .tok-str { color: var(--tok-string); }
+        .tok-com { color: var(--tok-comment); font-style: italic; }
+        .tok-num { color: var(--tok-number); }
+        .tok-typ { color: var(--tok-class); }
+        .tok-func { color: var(--tok-function); }
+        .tok-var { color: var(--tok-variable); }
+        .tok-op { color: var(--tok-operator); }
+        .tok-tag { color: var(--tok-tag); }
+        .tok-attr { color: var(--tok-attr); }
+
+        /* Utilities */
+        .hidden { display: none !important; }
+        input[type="file"] { display: none; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Title Bar -->
+    <header id="titlebar">
+        <div class="app-brand">
+            <i data-lucide="cpu" width="16" class="app-icon"></i>
+            <span>COSMIC IDE v2.0</span>
+        </div>
+        <div class="menubar">
+            <div class="menu-btn" onclick="app.commands.exec('core.upload')">File</div>
+            <div class="menu-btn" onclick="app.commands.exec('core.palette')">Edit</div>
+            <div class="menu-btn" onclick="app.commands.exec('view.toggleSidebar')">View</div>
+            <div class="menu-btn">Go</div>
+            <div class="menu-btn">Run</div>
+            <div class="menu-btn" onclick="app.commands.exec('term.toggle')">Terminal</div>
+            <div class="menu-btn" onclick="app.commands.exec('core.palette')">Help</div>
+        </div>
+        <div style="flex-grow:1"></div>
+        <div style="display:flex; gap:10px; opacity:0.5;">
+            <i data-lucide="minus" width="14"></i>
+            <i data-lucide="square" width="12"></i>
+            <i data-lucide="x" width="14"></i>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div id="workbench">
+        
+        <!-- Activity Bar -->
+        <aside id="activity-bar">
+            <div class="activity-item active" title="Explorer" onclick="app.layout.toggleSidebar('explorer')">
+                <i data-lucide="files" width="24"></i>
+            </div>
+            <div class="activity-item" title="Search" onclick="app.commands.exec('core.find')">
+                <i data-lucide="search" width="24"></i>
+            </div>
+            <div class="activity-item" title="Source Control">
+                <i data-lucide="git-branch" width="24"></i>
+            </div>
+            <div class="activity-item" title="Extensions">
+                <i data-lucide="blocks" width="24"></i>
+            </div>
+            <div style="flex-grow:1"></div>
+            <div class="activity-item" title="Settings" onclick="app.commands.exec('core.settings')">
+                <i data-lucide="settings" width="24"></i>
+            </div>
+            <div class="activity-item" title="Account">
+                <i data-lucide="user-circle" width="24"></i>
+            </div>
+        </aside>
+
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <span>Explorer</span>
+                <div class="sidebar-actions">
+                    <i data-lucide="file-plus" width="14" title="New File" onclick="app.commands.exec('file.new')"></i>
+                    <i data-lucide="folder-plus" width="14" title="New Folder" onclick="app.commands.exec('file.newFolder')"></i>
+                    <i data-lucide="refresh-cw" width="14" title="Refresh"></i>
+                    <i data-lucide="chevrons-left" width="14" title="Collapse" onclick="app.layout.toggleSidebar()"></i>
+                </div>
+            </div>
+            <div id="explorer-content">
+                <!-- Tree rendered by JS -->
+            </div>
+            <div class="resizer-h" id="sidebar-resizer"></div>
+        </aside>
+
+        <!-- Editor Area -->
+        <main id="main-editor-area">
+            <div id="tabs-bar">
+                <!-- Tabs rendered by JS -->
+            </div>
+            <div id="breadcrumbs">
+                Project <i data-lucide="chevron-right" width="12" style="margin:0 4px"></i> src <i data-lucide="chevron-right" width="12" style="margin:0 4px"></i> <span id="crumb-file">...</span>
+            </div>
+            
+            <div id="editor-surface">
+                <div id="gutter"></div>
+                <div id="code-scroll-container">
+                    <div id="renderer" class="code-layer"></div>
+                    <textarea id="input-textarea" class="code-layer" spellcheck="false" wrap="off"></textarea>
+                </div>
+                <div id="minimap">
+                    <canvas id="minimap-canvas"></canvas>
+                    <div id="minimap-slider"></div>
+                </div>
+            </div>
+
+            <!-- Terminal Panel -->
+            <div id="bottom-panel">
+                <div class="resizer-v" id="panel-resizer"></div>
+                <div class="panel-header">
+                    <div class="panel-tab" onclick="app.layout.switchPanel('problems')">Problems</div>
+                    <div class="panel-tab" onclick="app.layout.switchPanel('output')">Output</div>
+                    <div class="panel-tab" onclick="app.layout.switchPanel('debug')">Debug Console</div>
+                    <div class="panel-tab active" onclick="app.layout.switchPanel('terminal')">Terminal</div>
+                    <div class="panel-actions">
+                        <i data-lucide="plus" width="14" style="cursor:pointer"></i>
+                        <i data-lucide="trash-2" width="14" style="cursor:pointer" onclick="app.term.clear()"></i>
+                        <i data-lucide="x" width="14" style="cursor:pointer" onclick="app.layout.togglePanel()"></i>
+                    </div>
+                </div>
+                <div id="terminal-container">
+                    <!-- Terminal Lines -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Status Bar -->
+    <footer id="statusbar">
+        <div class="status-section">
+            <div class="status-item"><i data-lucide="git-branch" width="12"></i> main</div>
+            <div class="status-item"><i data-lucide="refresh-cw" width="12"></i> Sync</div>
+            <div class="status-item" id="status-diagnostics"><i data-lucide="x-circle" width="12"></i> 0 <i data-lucide="alert-triangle" width="12"></i> 0</div>
+        </div>
+        <div class="status-section">
+            <div class="status-item" id="status-cursor">Ln 1, Col 1</div>
+            <div class="status-item" id="status-spaces">Spaces: 4</div>
+            <div class="status-item" id="status-encoding">UTF-8</div>
+            <div class="status-item" id="status-lang">Plain Text</div>
+            <div class="status-item"><i data-lucide="bell" width="12"></i></div>
+        </div>
+    </footer>
+
+    <!-- Command Palette -->
+    <div id="palette-overlay">
+        <div id="palette">
+            <input type="text" id="palette-search" placeholder="> Type a command...">
+            <div id="palette-list"></div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal">
+        <div id="settings-panel">
+            <div class="set-header">
+                <span>Settings</span>
+                <i data-lucide="x" width="18" style="cursor:pointer" onclick="app.commands.exec('core.settings')"></i>
+            </div>
+            <div class="set-body">
+                <div class="set-group">
+                    <div class="set-title">Editor</div>
+                    <div class="set-row">
+                        <span class="set-label">Font Size</span>
+                        <input type="number" class="set-input" value="14" onchange="app.settings.update('fontSize', this.value)">
+                    </div>
+                    <div class="set-row">
+                        <span class="set-label">Tab Size</span>
+                        <input type="number" class="set-input" value="4" onchange="app.settings.update('tabSize', this.value)">
+                    </div>
+                    <div class="set-row">
+                        <span class="set-label">Word Wrap</span>
+                        <input type="checkbox" class="set-check" onchange="app.settings.update('wordWrap', this.checked)">
+                    </div>
+                    <div class="set-row">
+                        <span class="set-label">Mini Map</span>
+                        <input type="checkbox" class="set-check" checked onchange="app.settings.update('minimap', this.checked)">
+                    </div>
+                </div>
+                <div class="set-group">
+                    <div class="set-title">Terminal</div>
+                    <div class="set-row">
+                        <span class="set-label">Font Family</span>
+                        <input type="text" class="set-input" value="JetBrains Mono">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu (Generic) -->
+    <div id="ctx-menu" class="ctx-menu">
+        <!-- Injected via JS -->
+    </div>
+
+    <input type="file" id="file-upload" multiple webkitdirectory />
+
+    <script>
+        /**
+         * ============================================================================
+         * COSMIC IDE CORE v2.0
+         * Architected with modular services.
+         * ============================================================================
+         */
+
+        /* --- 1. Event Bus --- */
+        class EventBus {
+            constructor() { this.listeners = {}; }
+            on(event, callback) {
+                if (!this.listeners[event]) this.listeners[event] = [];
+                this.listeners[event].push(callback);
+            }
+            emit(event, data) {
+                if (this.listeners[event]) this.listeners[event].forEach(cb => cb(data));
+            }
+        }
+
+        /* --- 2. Utils --- */
+        const Utils = {
+            id: () => Math.random().toString(36).substr(2, 9),
+            sanitize: (str) => str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"),
+            debounce: (func, wait) => {
+                let timeout;
+                return (...args) => {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func(...args), wait);
+                };
+            }
+        };
+
+        /* --- 3. Settings Store --- */
+        class SettingsStore {
+            constructor(bus) {
+                this.bus = bus;
+                this.config = {
+                    fontSize: 14,
+                    tabSize: 4,
+                    wordWrap: false,
+                    minimap: true,
+                    theme: 'cosmic-dark'
+                };
+                // Load from storage
+                const saved = localStorage.getItem('cosmic_settings');
+                if (saved) this.config = { ...this.config, ...JSON.parse(saved) };
+                
+                this.apply();
+            }
+
+            update(key, value) {
+                this.config[key] = value;
+                localStorage.setItem('cosmic_settings', JSON.stringify(this.config));
+                this.apply();
+                this.bus.emit('settings-changed', this.config);
+            }
+
+            apply() {
+                const root = document.documentElement;
+                // Font Size handled by CSS variable or direct style injection in editor
+                document.getElementById('editor-surface').style.setProperty('--font-size', this.config.fontSize + 'px');
+                
+                // Minimap Toggle
+                const mm = document.getElementById('minimap');
+                if (mm) mm.style.display = this.config.minimap ? 'block' : 'none';
+                
+                // Propagate font size to editor elements
+                const layers = document.querySelectorAll('.code-layer, #gutter');
+                layers.forEach(el => el.style.fontSize = this.config.fontSize + 'px');
+            }
+        }
+
+        /* --- 4. Language & Grammar Registry --- */
+        const GrammarRegistry = {
+            // C/C++
+            cpp: {
+                keywords: /\b(auto|break|case|catch|char|class|const|continue|default|delete|do|double|else|enum|explicit|export|extern|false|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|operator|private|protected|public|return|short|signed|sizeof|static|struct|switch|template|this|throw|true|try|typedef|union|unsigned|using|virtual|void|volatile|while)\b/g,
+                types: /\b(std::\w+|vector|string|map|int|float|bool|void|size_t)\b/g,
+                preproc: /^\s*#\w+/gm,
+                comment: /(\/\/.*|\/\*[\s\S]*?\*\/)/g,
+                string: /(".*?"|'.*?')/g,
+                number: /\b\d+(\.\d+)?\b/g
+            },
+            // C#
+            csharp: {
+                keywords: /\b(abstract|as|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|do|double|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|goto|if|implicit|in|int|interface|internal|is|lock|long|namespace|new|null|object|operator|out|override|params|private|protected|public|readonly|ref|return|sbyte|sealed|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|virtual|void|volatile|while)\b/g,
+                comment: /(\/\/.*|\/\*[\s\S]*?\*\/)/g,
+                string: /(@?".*?")/g,
+                number: /\b\d+\b/g
+            },
+            // Python
+            python: {
+                keywords: /\b(and|as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|not|or|pass|print|raise|return|try|while|with|yield)\b/g,
+                builtins: /\b(True|False|None|self)\b/g,
+                comment: /(#.*)/g,
+                string: /(".*?"|'.*?'|""".*?""")/g,
+                decorator: /(@\w+)/g,
+                number: /\b\d+\b/g
+            },
+            // JavaScript / TypeScript
+            js: {
+                keywords: /\b(async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|export|extends|false|finally|for|function|if|import|in|instanceof|new|null|return|super|switch|this|throw|true|try|typeof|var|void|while|with|let|yield|interface|type|implements|public|private|protected)\b/g,
+                comment: /(\/\/.*|\/\*[\s\S]*?\*\/)/g,
+                string: /(".*?"|'.*?'|`[\s\S]*?`)/g,
+                operator: /(=>|===|!==|\+=|-=)/g,
+                number: /\b\d+\b/g
+            },
+            // HTML
+            html: {
+                tag: /(&lt;\/?)(\w+)(.*?)(&gt;)/g,
+                attr: /\b([a-zA-Z0-9-]+)(=)/g,
+                comment: /(&lt;!--[\s\S]*?--&gt;)/g,
+                string: /(".*?")/g
+            },
+            // CSS
+            css: {
+                keywords: /(@import|@media|@font-face|!important)/g,
+                props: /([a-z-]+)(:)/g,
+                comment: /(\/\*[\s\S]*?\*\/)/g,
+                string: /(".*?"|'.*?')/g,
+                units: /\b(\d+)(px|em|rem|%|vh|vw)\b/g
+            },
+            // SQL
+            sql: {
+                keywords: /\b(SELECT|FROM|WHERE|INSERT|INTO|UPDATE|DELETE|CREATE|TABLE|DROP|ALTER|INDEX|JOIN|INNER|LEFT|RIGHT|OUTER|ON|GROUP|BY|ORDER|HAVING|LIMIT|OFFSET|UNION|ALL|DISTINCT|AS|AND|OR|NOT|NULL|IS|PRIMARY|KEY|FOREIGN|REFERENCES|DEFAULT|VALUES)\b/gi,
+                types: /\b(INT|VARCHAR|TEXT|DATE|DATETIME|BOOLEAN|FLOAT|DECIMAL)\b/gi,
+                comment: /(--.*)/g,
+                string: /('.*?')/g
+            },
+            // PHP
+            php: {
+                keywords: /\b(echo|print|if|else|elseif|while|do|for|foreach|break|continue|switch|case|default|function|return|include|require|include_once|require_once|class|public|private|protected|static|new|this)\b/g,
+                vars: /(\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)/g,
+                comment: /(\/\/.*|\/\*[\s\S]*?\*\/|#.*)/g,
+                string: /(".*?"|'.*?')/g
+            }
+        };
+
+        class Lexer {
+            highlight(code, lang) {
+                // Determine language mode
+                let mode = 'txt';
+                if (['c', 'cpp', 'h', 'hpp'].includes(lang)) mode = 'cpp';
+                else if (['cs'].includes(lang)) mode = 'csharp';
+                else if (['py'].includes(lang)) mode = 'python';
+                else if (['js', 'ts', 'jsx', 'tsx'].includes(lang)) mode = 'js';
+                else if (['html', 'xml'].includes(lang)) mode = 'html';
+                else if (['css'].includes(lang)) mode = 'css';
+                else if (['sql'].includes(lang)) mode = 'sql';
+                else if (['php'].includes(lang)) mode = 'php';
+
+                // Basic sanitation
+                let html = Utils.sanitize(code);
+                const g = GrammarRegistry[mode];
+                if (!g) return html;
+
+                // Application Order (Strategy: protect strings/comments first usually, but simplified regex here)
+                // We use simple regex replacement. Note: This is fragile for nested structures but works for visual demo.
+                
+                if (mode === 'html') {
+                    html = html.replace(g.comment, '<span class="tok-com">$1</span>');
+                    html = html.replace(g.tag, '$1<span class="tok-tag">$2</span>$3$4');
+                    html = html.replace(g.attr, '<span class="tok-attr">$1</span>$2');
+                    html = html.replace(g.string, '<span class="tok-str">$1</span>');
+                } else if (mode === 'css') {
+                    html = html.replace(g.comment, '<span class="tok-com">$1</span>');
+                    html = html.replace(g.string, '<span class="tok-str">$1</span>');
+                    html = html.replace(g.keywords, '<span class="tok-kw">$1</span>');
+                    html = html.replace(g.units, '<span class="tok-num">$1$2</span>');
+                    html = html.replace(g.props, '<span class="tok-attr">$1</span>$2');
+                } else {
+                    // Generic programming languages
+                    if (g.comment) html = html.replace(g.comment, '<span class="tok-com">$1</span>');
+                    if (g.string) html = html.replace(g.string, '<span class="tok-str">$1</span>');
+                    if (g.preproc) html = html.replace(g.preproc, '<span class="tok-typ">$1</span>');
+                    if (g.keywords) html = html.replace(g.keywords, '<span class="tok-kw">$1</span>');
+                    if (g.types) html = html.replace(g.types, '<span class="tok-typ">$1</span>');
+                    if (g.vars) html = html.replace(g.vars, '<span class="tok-var">$1</span>');
+                    if (g.builtins) html = html.replace(g.builtins, '<span class="tok-kw">$1</span>');
+                    if (g.number) html = html.replace(g.number, '<span class="tok-num">$1</span>');
+                    if (g.decorator) html = html.replace(g.decorator, '<span class="tok-func">$1</span>');
+                    if (g.operator) html = html.replace(g.operator, '<span class="tok-op">$1</span>');
+                    // Simple function call heuristic
+                    html = html.replace(/\b([a-zA-Z_]\w*)(?=\()/g, '<span class="tok-func">$1</span>');
+                }
+
+                return html;
+            }
+        }
+
+        /* --- 5. Virtual File System --- */
+        class VirtualFileSystem extends EventEmitter {
+            constructor() {
+                super();
+                this.load();
+            }
+
+            load() {
+                const saved = localStorage.getItem('cosmic_fs_v2');
+                if (saved) {
+                    this.root = JSON.parse(saved);
+                } else {
+                    // Default Project Structure
+                    this.root = {
+                        id: 'root', name: 'Project', type: 'folder', children: [
+                            { id: 'f1', name: 'main.js', type: 'file', content: 'console.log("Hello Universe");\n\nfunction init() {\n    // Start engine\n}' },
+                            { id: 'f2', name: 'styles.css', type: 'file', content: 'body {\n    background: #000;\n    color: #fff;\n}' },
+                            { id: 'f3', name: 'index.html', type: 'file', content: '<!DOCTYPE html>\n<html>\n<body>\n    <h1>Hello</h1>\n</body>\n</html>' },
+                            { id: 'd1', name: 'src', type: 'folder', children: [
+                                { id: 'f4', name: 'utils.cpp', type: 'file', content: '#include <iostream>\n\nint main() {\n    return 0;\n}' }
+                            ]}
+                        ]
+                    };
+                }
+            }
+
+            save() {
+                localStorage.setItem('cosmic_fs_v2', JSON.stringify(this.root));
+                this.emit('change');
+            }
+
+            // Recursive finder
+            findNode(id, node = this.root, parent = null) {
+                if (node.id === id) return { node, parent };
+                if (node.children) {
+                    for (let child of node.children) {
+                        const res = this.findNode(id, child, node);
+                        if (res) return res;
+                    }
+                }
+                return null;
+            }
+
+            createFile(parentId, name, content = '') {
+                const { node: parent } = this.findNode(parentId);
+                if (parent && parent.type === 'folder') {
+                    const newFile = { id: Utils.id(), name, type: 'file', content };
+                    parent.children.push(newFile);
+                    this.save();
+                    return newFile;
+                }
+            }
+
+            createFolder(parentId, name) {
+                const { node: parent } = this.findNode(parentId);
+                if (parent && parent.type === 'folder') {
+                    const newFolder = { id: Utils.id(), name, type: 'folder', children: [] };
+                    parent.children.push(newFolder);
+                    this.save();
+                    return newFolder;
+                }
+            }
+
+            delete(id) {
+                const { parent } = this.findNode(id);
+                if (parent) {
+                    parent.children = parent.children.filter(c => c.id !== id);
+                    this.save();
+                }
+            }
+
+            updateFile(id, content) {
+                const { node } = this.findNode(id);
+                if (node && node.type === 'file') {
+                    node.content = content;
+                    this.save();
+                }
+            }
+
+            rename(id, newName) {
+                const { node } = this.findNode(id);
+                if (node) {
+                    node.name = newName;
+                    this.save();
+                }
+            }
+        }
+
+        /* --- 6. Editor Engine (Text Buffer & History) --- */
+        class EditorEngine {
+            constructor(bus, vfs) {
+                this.bus = bus;
+                this.vfs = vfs;
+                this.activeFileId = null;
+                this.history = {}; // Map fileId -> { stack: [], ptr: -1 }
+                
+                this.lexer = new Lexer();
+                
+                // Elements
+                this.textarea = document.getElementById('input-textarea');
+                this.renderer = document.getElementById('renderer');
+                this.gutter = document.getElementById('gutter');
+                this.minimapCanvas = document.getElementById('minimap-canvas');
+                this.minimapCtx = this.minimapCanvas.getContext('2d');
+                
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                this.textarea.addEventListener('input', () => this.handleInput());
+                this.textarea.addEventListener('keydown', (e) => this.handleKey(e));
+                this.textarea.addEventListener('scroll', () => this.syncScroll());
+                this.textarea.addEventListener('click', () => this.updateStatus());
+                this.textarea.addEventListener('keyup', () => this.updateStatus());
+            }
+
+            open(id) {
+                const { node: file } = this.vfs.findNode(id);
+                if (!file || file.type !== 'file') return;
+
+                this.activeFileId = id;
+                this.textarea.value = file.content;
+                
+                // Init history for this file if needed
+                if (!this.history[id]) {
+                    this.history[id] = { stack: [file.content], ptr: 0 };
+                }
+
+                this.updateView();
+                this.bus.emit('file-opened', file);
+            }
+
+            handleInput() {
+                if (!this.activeFileId) return;
+                const content = this.textarea.value;
+                
+                // Update VFS
+                this.vfs.updateFile(this.activeFileId, content);
+                
+                // Push to History (Debounce logic implied or explicit)
+                const hist = this.history[this.activeFileId];
+                // Slice future if we were back in time
+                if (hist.ptr < hist.stack.length - 1) {
+                    hist.stack = hist.stack.slice(0, hist.ptr + 1);
+                }
+                hist.stack.push(content);
+                hist.ptr++;
+                if (hist.stack.length > 50) { hist.stack.shift(); hist.ptr--; }
+
+                this.updateView();
+            }
+
+            handleKey(e) {
+                // Tab Indentation
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    document.execCommand('insertText', false, '    ');
+                }
+                
+                // Undo: Ctrl+Z
+                if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+                    e.preventDefault();
+                    this.undo();
+                }
+                
+                // Redo: Ctrl+Y
+                if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
+                    e.preventDefault();
+                    this.redo();
+                }
+            }
+
+            undo() {
+                if (!this.activeFileId) return;
+                const hist = this.history[this.activeFileId];
+                if (hist.ptr > 0) {
+                    hist.ptr--;
+                    const val = hist.stack[hist.ptr];
+                    this.textarea.value = val;
+                    this.vfs.updateFile(this.activeFileId, val);
+                    this.updateView();
+                }
+            }
+
+            redo() {
+                if (!this.activeFileId) return;
+                const hist = this.history[this.activeFileId];
+                if (hist.ptr < hist.stack.length - 1) {
+                    hist.ptr++;
+                    const val = hist.stack[hist.ptr];
+                    this.textarea.value = val;
+                    this.vfs.updateFile(this.activeFileId, val);
+                    this.updateView();
+                }
+            }
+
+            updateView() {
+                const code = this.textarea.value;
+                const { node } = this.vfs.findNode(this.activeFileId);
+                const ext = node.name.split('.').pop().toLowerCase();
+
+                // Syntax Highlight
+                this.renderer.innerHTML = this.lexer.highlight(code, ext) + '<br>'; // Trailing break for scroll
+
+                // Line Numbers
+                const lines = code.split('\n').length;
+                this.gutter.innerHTML = Array(lines).fill(0).map((_, i) => `<div>${i + 1}</div>`).join('');
+
+                // Minimap
+                this.drawMinimap(code);
+                this.updateStatus();
+            }
+
+            syncScroll() {
+                this.renderer.scrollTop = this.textarea.scrollTop;
+                this.renderer.scrollLeft = this.textarea.scrollLeft;
+                this.gutter.scrollTop = this.textarea.scrollTop;
+                
+                // Sync Minimap Slider
+                const slider = document.getElementById('minimap-slider');
+                const ratio = this.textarea.scrollTop / this.textarea.scrollHeight;
+                const mapHeight = this.minimapCanvas.height;
+                const viewHeight = this.textarea.clientHeight;
+                const sliderHeight = (viewHeight / this.textarea.scrollHeight) * mapHeight;
+                
+                slider.style.height = Math.max(20, sliderHeight) + 'px';
+                slider.style.top = (ratio * mapHeight) + 'px';
+            }
+
+            drawMinimap(code) {
+                const ctx = this.minimapCtx;
+                const w = this.minimapCanvas.width = 60;
+                const h = this.minimapCanvas.height = document.getElementById('editor-surface').clientHeight;
+                
+                ctx.clearRect(0, 0, w, h);
+                ctx.fillStyle = '#666';
+                
+                const lines = code.split('\n');
+                const lineHeight = 3;
+                
+                lines.forEach((line, i) => {
+                    const y = i * lineHeight;
+                    if (y > h) return;
+                    // Draw a simplified representation of the line
+                    // Very abstract: just blocks for non-whitespace
+                    let x = 0;
+                    for (let j = 0; j < line.length && x < w; j++) {
+                        if (line[j] !== ' ') {
+                            ctx.fillRect(x, y, 2, 2);
+                        }
+                        x += 2;
+                    }
+                });
+            }
+
+            updateStatus() {
+                const el = this.textarea;
+                const val = el.value;
+                const sel = el.selectionStart;
+                const line = val.substr(0, sel).split('\n').length;
+                const col = sel - val.lastIndexOf('\n', sel - 1);
+                const { node } = this.vfs.findNode(this.activeFileId);
+                const ext = node.name.split('.').pop().toUpperCase();
+
+                document.getElementById('status-cursor').innerText = `Ln ${line}, Col ${col}`;
+                document.getElementById('status-lang').innerText = ext || 'TXT';
+            }
+        }
+
+        /* --- 7. Terminal Service --- */
+        class TerminalService {
+            constructor(vfs) {
+                this.vfs = vfs;
+                this.container = document.getElementById('terminal-container');
+                this.cwd = ['root']; // Current Working Directory Path (IDs)
+                this.cwdPath = '/';
+                this.init();
+            }
+
+            init() {
+                this.print("Cosmic Shell v1.0.0");
+                this.print("Type 'help' to see available commands.");
+                this.prompt();
+            }
+
+            print(text, type = '') {
+                const div = document.createElement('div');
+                div.className = 'term-line ' + type;
+                div.innerText = text;
+                this.container.insertBefore(div, this.currentInputLine);
+                this.container.scrollTop = this.container.scrollHeight;
+            }
+
+            prompt() {
+                const div = document.createElement('div');
+                div.className = 'term-line';
+                div.innerHTML = `<span class="term-ps1">➜</span><span class="term-path">${this.cwdPath}</span> $ <input class="term-input" type="text">`;
+                this.container.appendChild(div);
+                this.currentInputLine = div;
+                
+                const input = div.querySelector('input');
+                input.focus();
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        const cmd = input.value.trim();
+                        input.disabled = true;
+                        this.exec(cmd);
+                    }
+                });
+            }
+
+            resolvePath(pathStr) {
+                // Simplified path resolution
+                if (pathStr === '/') return this.vfs.root;
+                // For now, assume relative to current folder or just searching immediate children
+                const currentFolderId = this.cwd[this.cwd.length - 1];
+                const { node } = this.vfs.findNode(currentFolderId);
+                if (node && node.children) {
+                    const found = node.children.find(c => c.name === pathStr);
+                    return found;
+                }
+                return null;
+            }
+
+            exec(cmdStr) {
+                if (!cmdStr) { this.prompt(); return; }
+                const [cmd, ...args] = cmdStr.split(' ');
+                
+                switch(cmd) {
+                    case 'help':
+                        this.print("Commands: ls, cd, mkdir, touch, rm, cat, clear, date, whoami", 'term-msg-info');
+                        break;
+                    case 'clear':
+                        this.container.innerHTML = '';
+                        break;
+                    case 'date':
+                        this.print(new Date().toString());
+                        break;
+                    case 'whoami':
+                        this.print("cosmic_user");
+                        break;
+                    case 'ls':
+                        const currId = this.cwd[this.cwd.length - 1];
+                        const { node } = this.vfs.findNode(currId);
+                        if (node && node.children) {
+                            const list = node.children.map(c => c.name + (c.type==='folder'?'/':'')).join('  ');
+                            this.print(list || '(empty)');
+                        }
+                        break;
+                    case 'touch':
+                        if (args[0]) {
+                            const curr = this.cwd[this.cwd.length-1];
+                            this.vfs.createFile(curr, args[0]);
+                            this.print(`Created file ${args[0]}`);
+                        } else this.print("Usage: touch <filename>", 'term-msg-warn');
+                        break;
+                    case 'mkdir':
+                        if (args[0]) {
+                            const curr = this.cwd[this.cwd.length-1];
+                            this.vfs.createFolder(curr, args[0]);
+                            this.print(`Created folder ${args[0]}`);
+                        }
+                        break;
+                    case 'cat':
+                        if (args[0]) {
+                            const target = this.resolvePath(args[0]);
+                            if (target && target.type === 'file') this.print(target.content);
+                            else this.print(`File not found: ${args[0]}`, 'term-msg-error');
+                        }
+                        break;
+                    case 'cd':
+                        if (!args[0] || args[0] === '/') {
+                            this.cwd = ['root']; this.cwdPath = '/';
+                        } else if (args[0] === '..') {
+                            if (this.cwd.length > 1) {
+                                this.cwd.pop();
+                                // Reconstruct path string simplified
+                                this.cwdPath = '/'; // Hacky reset
+                            }
+                        } else {
+                            const target = this.resolvePath(args[0]);
+                            if (target && target.type === 'folder') {
+                                this.cwd.push(target.id);
+                                this.cwdPath += target.name + '/';
+                            } else {
+                                this.print(`Directory not found: ${args[0]}`, 'term-msg-error');
+                            }
+                        }
+                        break;
+                    default:
+                        this.print(`Command not found: ${cmd}`, 'term-msg-error');
+                }
+                
+                this.prompt();
+            }
+            
+            clear() {
+                this.container.innerHTML = '';
+                this.prompt();
+            }
+        }
+
+        /* --- 8. UI Layout Controller --- */
+        class LayoutController {
+            constructor() {
+                this.sidebar = document.getElementById('sidebar');
+                this.panel = document.getElementById('bottom-panel');
+                
+                // Sidebar Resizing
+                const sResizer = document.getElementById('sidebar-resizer');
+                sResizer.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    const resize = (ev) => {
+                        this.sidebar.style.width = ev.clientX + 'px';
+                    };
+                    const stop = () => {
+                        document.removeEventListener('mousemove', resize);
+                        document.removeEventListener('mouseup', stop);
+                    };
+                    document.addEventListener('mousemove', resize);
+                    document.addEventListener('mouseup', stop);
+                });
+
+                // Panel Resizing
+                const pResizer = document.getElementById('panel-resizer');
+                pResizer.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    const startY = e.clientY;
+                    const startH = this.panel.clientHeight;
+                    const resize = (ev) => {
+                        const newH = startH - (ev.clientY - startY);
+                        this.panel.style.height = newH + 'px';
+                    };
+                    const stop = () => {
+                        document.removeEventListener('mousemove', resize);
+                        document.removeEventListener('mouseup', stop);
+                    };
+                    document.addEventListener('mousemove', resize);
+                    document.addEventListener('mouseup', stop);
+                });
+            }
+
+            toggleSidebar(viewId) {
+                const w = this.sidebar.style.width;
+                if (w === '0px') {
+                    this.sidebar.style.width = '260px';
+                } else if (!viewId) {
+                    this.sidebar.style.width = '0px';
+                }
+                // Handle tab switching inside sidebar if implemented
+            }
+
+            togglePanel() {
+                if (this.panel.style.display === 'none') this.panel.style.display = 'flex';
+                else this.panel.style.display = 'none';
+            }
+
+            switchPanel(tabId) {
+                document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+                event.target.classList.add('active');
+                // Logic to swap panel content would go here
+            }
+        }
+
+        /* --- 9. Command & Context Services --- */
+        class CommandService {
+            constructor() {
+                this.registry = {
+                    'core.upload': () => document.getElementById('file-upload').click(),
+                    'core.settings': () => {
+                        const el = document.getElementById('settings-modal');
+                        el.style.display = el.style.display==='flex' ? 'none' : 'flex';
+                    },
+                    'core.palette': () => {
+                        const el = document.getElementById('palette-overlay');
+                        el.style.display = 'flex';
+                        document.getElementById('palette-search').focus();
+                        this.renderPalette();
+                    },
+                    'core.find': () => alert("Find widget coming soon!"),
+                    'view.toggleSidebar': () => app.layout.toggleSidebar(),
+                    'term.toggle': () => app.layout.togglePanel(),
+                    'file.new': () => app.vfs.createFilePrompt(),
+                    'file.newFolder': () => app.vfs.createFolderPrompt(),
+                    'editor.undo': () => app.editor.undo(),
+                    'editor.redo': () => app.editor.redo(),
+                };
+            }
+
+            exec(id) {
+                if (this.registry[id]) this.registry[id]();
+            }
+
+            renderPalette() {
+                const list = document.getElementById('palette-list');
+                const commands = Object.keys(this.registry).map(k => ({ id: k, label: k }));
+                list.innerHTML = commands.map(c => `
+                    <div class="pal-item" onclick="app.commands.exec('${c.id}'); document.getElementById('palette-overlay').style.display='none'">
+                        <span>${c.label}</span>
+                    </div>
+                `).join('');
+                
+                const input = document.getElementById('palette-search');
+                input.oninput = () => {
+                    const val = input.value.toLowerCase();
+                    const filtered = commands.filter(c => c.label.toLowerCase().includes(val));
+                    list.innerHTML = filtered.map(c => `
+                        <div class="pal-item" onclick="app.commands.exec('${c.id}'); document.getElementById('palette-overlay').style.display='none'">
+                            <span>${c.label}</span>
+                        </div>
+                    `).join('');
+                };
+            }
+        }
+
+        /* --- Main App Controller --- */
+        const app = {
+            bus: new EventBus(),
+            
+            init() {
+                this.vfs = new VirtualFileSystem();
+                this.settings = new SettingsStore(this.bus);
+                this.layout = new LayoutController();
+                this.editor = new EditorEngine(this.bus, this.vfs);
+                this.term = new TerminalService(this.vfs);
+                this.commands = new CommandService();
+                
+                this.tabs = [];
+                
+                // Initial Render
+                this.renderExplorer();
+                
+                // Open default file
+                this.openFile('f1');
+
+                // Global Shortcuts
+                document.addEventListener('keydown', e => {
+                    if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+                        e.preventDefault();
+                        this.commands.exec('core.palette');
+                    }
+                    if (e.key === 'Escape') {
+                        document.getElementById('palette-overlay').style.display = 'none';
+                        document.getElementById('settings-modal').style.display = 'none';
+                        document.getElementById('ctx-menu').style.display = 'none';
+                    }
+                });
+
+                // VFS Events
+                this.vfs.on('change', () => this.renderExplorer());
+                
+                // Context Menu Closer
+                document.addEventListener('click', () => {
+                    document.getElementById('ctx-menu').style.display = 'none';
+                });
+                
+                lucide.createIcons();
+            },
+
+            openFile(id) {
+                if (!this.tabs.includes(id)) {
+                    this.tabs.push(id);
+                    this.renderTabs();
+                }
+                this.editor.open(id);
+                // Update Breadcrumb
+                const { node } = this.vfs.findNode(id);
+                document.getElementById('crumb-file').innerText = node.name;
+                
+                // Update active tab visual
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                const tabEl = document.querySelector(`.tab[data-id="${id}"]`);
+                if(tabEl) tabEl.classList.add('active');
+            },
+
+            closeTab(id, e) {
+                if(e) e.stopPropagation();
+                this.tabs = this.tabs.filter(t => t !== id);
+                if (this.editor.activeFileId === id) {
+                    if (this.tabs.length > 0) this.openFile(this.tabs[this.tabs.length-1]);
+                    else {
+                        // Empty state
+                        this.editor.textarea.value = '';
+                        this.editor.renderer.innerHTML = '';
+                        this.editor.activeFileId = null;
+                    }
+                }
+                this.renderTabs();
+            },
+
+            renderTabs() {
+                const container = document.getElementById('tabs-bar');
+                container.innerHTML = this.tabs.map(id => {
+                    const { node } = this.vfs.findNode(id);
+                    if (!node) return '';
+                    return `
+                        <div class="tab ${this.editor.activeFileId === id ? 'active' : ''}" data-id="${id}" onclick="app.openFile('${id}')">
+                            <i data-lucide="file" width="12" style="margin-right:6px"></i>
+                            <span class="tab-label">${node.name}</span>
+                            <span class="tab-close" onclick="app.closeTab('${id}', event)">×</span>
+                        </div>
+                    `;
+                }).join('');
+                lucide.createIcons();
+            },
+
+            renderExplorer() {
+                const container = document.getElementById('explorer-content');
+                const renderNode = (node, depth) => {
+                    const pad = depth * 14 + 10;
+                    if (node.type === 'folder') {
+                        let html = `
+                            <div class="file-node" style="padding-left:${pad}px" oncontextmenu="app.showCtx(event, '${node.id}')">
+                                <div class="node-chevron open"><i data-lucide="chevron-right" width="12"></i></div>
+                                <div class="node-icon"><i data-lucide="folder" width="14" color="#eab308"></i></div>
+                                <span>${node.name}</span>
+                            </div>
+                        `;
+                        node.children.forEach(child => {
+                            html += renderNode(child, depth + 1);
+                        });
+                        return html;
+                    } else {
+                        // File icons based on extension
+                        const ext = node.name.split('.').pop();
+                        let icon = 'file';
+                        let color = '#94a3b8';
+                        if(ext === 'js') { color = '#fcd34d'; icon = 'file-json'; }
+                        if(ext === 'html') { color = '#f97316'; icon = 'file-code'; }
+                        if(ext === 'css') { color = '#3b82f6'; icon = 'file-code'; }
+                        if(ext === 'cpp') { color = '#60a5fa'; icon = 'cpu'; }
+
+                        return `
+                            <div class="file-node ${this.editor.activeFileId === node.id ? 'active' : ''}" style="padding-left:${pad}px" onclick="app.openFile('${node.id}')" oncontextmenu="app.showCtx(event, '${node.id}')">
+                                <div class="node-indent"></div>
+                                <div class="node-icon"><i data-lucide="${icon}" width="14" color="${color}"></i></div>
+                                <span>${node.name}</span>
+                            </div>
+                        `;
+                    }
+                };
+                
+                container.innerHTML = this.vfs.root.children.map(c => renderNode(c, 0)).join('');
+                lucide.createIcons();
+            },
+
+            showCtx(e, id) {
+                e.preventDefault();
+                e.stopPropagation();
+                const menu = document.getElementById('ctx-menu');
+                menu.style.display = 'block';
+                menu.style.left = e.clientX + 'px';
+                menu.style.top = e.clientY + 'px';
+                
+                menu.innerHTML = `
+                    <div class="ctx-item" onclick="app.vfs.delete('${id}')">Delete <span class="ctx-key">Del</span></div>
+                    <div class="ctx-item" onclick="const n=prompt('Rename'); if(n) app.vfs.rename('${id}', n)">Rename <span class="ctx-key">F2</span></div>
+                    <div class="ctx-sep"></div>
+                    <div class="ctx-item">Copy Path</div>
+                `;
+            }
+        };
+
+        // Initialize App
+        app.init();
+
+    </script>
+</body>
+</html>

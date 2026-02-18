@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Web Weaver - A Self-Writing Browser</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <h1>AI Web Weaver</h1>
+            </div>
+            <nav class="app-nav">
+                <a href="#home">Home</a>
+                <a href="#generated-pages-list">Generated Pages</a>
+                <a href="#about">About</a>
+            </nav>
+        </header>
+
+        <main class="app-main">
+            <section class="search-section" id="home">
+                <h2>Unleash the Power of AI to Build Your Web</h2>
+                <p class="subtitle">Enter any topic, and let our AI engine, "The Weaver," construct a comprehensive, all-in-one webpage from the best sources online.</p>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Try 'The Future of AI' or 'Healthy Recipes'">
+                    <button id="searchButton">Weave Page</button>
+                </div>
+            </section>
+
+            <div class="main-content-area">
+                <article id="content-display" class="content-display">
+                    <div class="placeholder">
+                        <h3>Your Dynamic Web Content Awaits</h3>
+                        <p>When you enter a query, The Weaver will check its existing library of generated pages. If a relevant page exists, it will be displayed here instantly. If not, a new page will be meticulously crafted and stored for future access.</p>
+                    </div>
+                </article>
+
+                <aside id="generated-pages-list" class="generated-pages-sidebar">
+                    <h3>Weaver's Library</h3>
+                    <ul id="pages-list">
+                        <li class="no-pages">No pages have been generated yet.</li>
+                    </ul>
+                </aside>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2026 AI Web Weaver. A new era of web browsing.</p>
+        </footer>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

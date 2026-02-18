@@ -1,0 +1,112 @@
+/* Search Section */
+.search-section {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-lg) 0;
+}
+
+.search-section h2 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-md);
+}
+
+/* Input Group */
+.input-group {
+    display: flex;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-lg);
+    border-radius: 50px;
+    background: white;
+    padding: 5px;
+    transition: transform 0.3s ease;
+}
+
+.input-group:focus-within {
+    transform: translateY(-2px);
+}
+
+#searchInput {
+    flex: 1;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 50px 0 0 50px;
+    outline: none;
+}
+
+#searchButton {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0 2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    transition: background 0.3s;
+}
+
+#searchButton:hover {
+    background: var(--primary-dark);
+}
+
+/* Sidebar List */
+.sidebar {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 100px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.badge {
+    background: var(--secondary);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.pages-list li {
+    margin-bottom: 10px;
+}
+
+.pages-list a {
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    transition: var(--transition-fast);
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.pages-list a:hover {
+    background: var(--bg-body);
+    color: var(--primary);
+    transform: translateX(5px);
+}

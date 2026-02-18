@@ -1,0 +1,98 @@
+/* Styles specifically for the AI Generated Content */
+.generated-content {
+    background: var(--bg-card);
+    padding: var(--spacing-lg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    animation: fadeIn 0.8s ease-out;
+}
+
+.generated-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.meta-info {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: var(--spacing-md);
+    display: block;
+}
+
+.generated-content h2 {
+    font-size: 1.8rem;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    color: var(--primary);
+    position: relative;
+    padding-left: 1rem;
+}
+
+.generated-content h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    width: 4px;
+    background: var(--secondary);
+    border-radius: 2px;
+}
+
+.generated-content p {
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.15rem;
+    color: #444;
+}
+
+.generated-content .content-image {
+    width: 100%;
+    border-radius: 12px;
+    margin: var(--spacing-md) 0;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.5s ease;
+}
+
+.generated-content .content-image:hover {
+    transform: scale(1.02);
+}
+
+/* Table Styles */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--spacing-md) 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+.data-table th {
+    background: var(--primary);
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+.data-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+/* Callout */
+.callout {
+    background: linear-gradient(to right, #eaf2fa, #fff);
+    border-left: 5px solid var(--primary);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #555;
+    border-radius: 0 8px 8px 0;
+}

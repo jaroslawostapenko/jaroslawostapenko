@@ -1,0 +1,42 @@
+:root {
+    /* Color Palette - Cyber Blue Theme */
+    --primary: #3a7bd5;
+    --primary-dark: #2c5a9e;
+    --secondary: #00d2ff;
+    --accent: #ff6b6b;
+    
+    --bg-body: #f4f7f6;
+    --bg-card: #ffffff;
+    --bg-sidebar: #f8f9fa;
+    
+    --text-main: #333333;
+    --text-muted: #666666;
+    --text-light: #ffffff;
+    
+    --border-light: #e1e4e8;
+    
+    /* Typography */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Lato', sans-serif;
+    --font-code: 'Fira Code', monospace;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 8px 16px rgba(0,0,0,0.1);
+    --shadow-lg: 0 16px 32px rgba(0,0,0,0.15);
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Dark Mode Preparation (Future Proofing) */
+@media (prefers-color-scheme: dark) {
+    /* :root { ... override variables here for dark mode ... } */
+}

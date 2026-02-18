@@ -1,0 +1,86 @@
+/* App Container */
+#app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--text-light);
+    padding: var(--spacing-sm) var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-area h1 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.5px;
+}
+
+.version {
+    font-size: 0.7rem;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+/* Navigation */
+.app-nav {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.nav-item {
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+    font-weight: 700;
+    transition: var(--transition-fast);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: var(--text-light);
+    background: rgba(255,255,255,0.1);
+}
+
+/* Main Layout Grid */
+.app-main {
+    flex: 1;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+}
+
+.workspace {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: var(--spacing-md);
+    align-items: start;
+    min-height: 60vh;
+}
+
+/* RWD for Workspace */
+@media (max-width: 1024px) {
+    .workspace {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        order: -1; /* Sidebar on top on mobile/tablet */
+        margin-bottom: var(--spacing-md);
+    }
+}

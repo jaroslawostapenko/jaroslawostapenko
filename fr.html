@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Yaroslav Ostapenko - Portfolio | Développeur Frontend Junior</title>
+    <meta name="description" content="Portfolio de Yaroslav Ostapenko - Développeur Frontend Junior de Cracovie. Spécialisation : HTML, CSS, JavaScript, PHP, MySQL, React. Création de sites web performants et sécurisés.">
+    <meta name="keywords" content="Yaroslav Ostapenko, Zespół Szkół Technicznych Chemobudowa-Kraków, Développeur Frontend Junior, Programmeur, Développeur Web, Portfolio, Cracovie, HTML, CSS, JavaScript, PHP, MySQL, SEO, SEM, UI/UX, Google Analytics, Search Console, W3C Validation, Semrush">
+    <meta name="author" content="Yaroslav Ostapenko">
+    <meta name="robots" content="index, follow">
+    <!-- Updated Canonical URL -->
+    <link rel="canonical" href="https://jaroslawostapenko.mqttwebs.com/fr.html">
+
+    <!-- Favicon (Updated paths for root hosting) -->
+    <link rel="icon" type="image/x-icon" sizes="192x192" href="favi.ico">
+    <link rel="shortcut icon" href="favi.ico">
+    <link rel="apple-touch-icon" href="favi.ico">
+
+    <!-- Open Graph / Facebook (Updated URLs) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jaroslawostapenko.mqttwebs.com/">
+    <meta property="og:title" content="Yaroslav Ostapenko - Portfolio | Développeur Frontend Junior">
+    <meta property="og:description" content="Portfolio de Yaroslav Ostapenko. Sites web modernes, optimisation des performances et applications web.">
+    <meta property="og:image" content="https://jaroslawostapenko.mqttwebs.com/IMG_20251029_104602.webp">
+
+    <!-- Twitter (Updated URLs) -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jaroslawostapenko.mqttwebs.com/">
+    <meta property="twitter:title" content="Yaroslav Ostapenko - Portfolio | Développeur Frontend Junior">
+    <meta property="twitter:description" content="Portfolio de Yaroslav Ostapenko. Sites web modernes, optimisation des performances et applications web.">
+    <meta property="twitter:image" content="https://jaroslawostapenko.mqttwebs.com/IMG_20251029_104602.webp">
+
+    <!-- Schema.org JSON-LD Structured Data (Updated URLs) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Yaroslav Ostapenko",
+        "alternateName": "Yaroslav.dev",
+        "jobTitle": "Développeur Frontend Junior",
+        "url": "https://jaroslawostapenko.mqttwebs.com/",
+        "image": "https://jaroslawostapenko.mqttwebs.com/IMG_20251029_104602.webp",
+        "description": "Programmeur ambitieux et motivé de 18 ans originaire d'Ukraine. Développeur Frontend Junior spécialisé en HTML, CSS, JavaScript, PHP et MySQL.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Cracovie",
+          "addressRegion": "Petite-Pologne",
+          "addressCountry": "PL"
+        },
+        "sameAs":[
+            "https://www.facebook.com/share/19XPsg3KDu/",
+            "https://www.instagram.com/ostapenkoaroslav861?igsh=YjZtcHA3Ym1kbWww"
+        ],
+        "knowsAbout":[
+            "HTML5", "CSS3", "JavaScript", "React", "PHP", "MySQL", "Git", 
+            "Responsive Web Design", "TypeScript", "Python", "SEO", "SEM", 
+            "UI/UX", "DSA", "DBMS", "Computer Networks", "Google Analytics", 
+            "Google Search Console", "W3C Validation", "Semrush"
+        ],
+        "email": "yaroslav.ostapenko16@gmail.com",
+        "telephone": "+48513815774"
+      }
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              blob: "blob 7s infinite",
+            },
+            keyframes: {
+              blob: {
+                "0%": { transform: "translate(0px, 0px) scale(1)" },
+                "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                "100%": { transform: "translate(0px, 0px) scale(1)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased font-['Inter']">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6 bg-transparent">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="bg-blue-600 p-2 rounded-lg text-white group-hover:scale-110 transition-transform">
+                        <i data-lucide="code-2" class="w-6 h-6"></i>
+                    </div>
+                    <span id="logo-text" class="text-xl font-bold tracking-tight text-slate-900 lg:text-white transition-colors">
+                        Yaroslav<span class="text-blue-600">.dev</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#hero" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Accueil</a>
+                    <a href="#about" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">À propos</a>
+                    <a href="#skills" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Compétences</a>
+                    <a href="#projects" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Projets</a>
+                    <a href="#experience" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Expérience</a>
+                    <a href="#certificates" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Certificats</a>
+                    <a href="#contact" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-all hover:shadow-lg hover:-translate-y-0.5">
+                        Embauchez-moi
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 transition-colors" aria-label="Toggle menu">
+                    <i data-lucide="menu" id="menu-icon" class="lg:text-white"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-100 shadow-xl transition-all duration-300 origin-top">
+            <nav class="flex flex-col p-4 space-y-4">
+                <a href="#hero" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Accueil</a>
+                <a href="#about" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">À propos</a>
+                <a href="#skills" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Compétences</a>
+                <a href="#projects" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Projets</a>
+                <a href="#experience" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Expérience</a>
+                <a href="#certificates" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Certificats</a>
+                <a href="#contact" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-slate-900">
+            <!-- Background patterns -->
+            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+                <div class="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
+                <div class="absolute top-0 -right-4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
+                <div class="absolute -bottom-8 left-20 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+            </div>
+
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div class="space-y-4">
+                            <span class="inline-block py-1 px-3 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium tracking-wide">
+                                Disponible pour travailler
+                            </span>
+                            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-tight">
+                                Yaroslav <br>
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                                    Ostapenko
+                                </span>
+                            </h1>
+                            <p class="text-xl text-slate-300 max-w-lg leading-relaxed">
+                                Développeur Frontend Junior. Programmeur ambitieux de 18 ans créant des solutions web modernes.
+                            </p>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#contact" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-blue-600/25 flex items-center gap-2">
+                                Contactez-moi
+                                <i data-lucide="mail" class="w-[18px] h-[18px]"></i>
+                            </a>
+                            <a href="#projects" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-xl transition-all border border-slate-700 hover:border-slate-600">
+                                Voir mes projets
+                            </a>
+                        </div>
+
+                        <!-- Social Media Links Updated -->
+                        <div class="flex items-center gap-6 pt-4 text-slate-400">
+                            <a href="mailto:yaroslav.ostapenko16@gmail.com" class="hover:text-blue-400 transition-colors" aria-label="Email">
+                                <i data-lucide="mail" class="w-6 h-6"></i>
+                            </a>
+                            <a href="https://github.com/YaroslavOstapenko5" target="_blank" class="hover:text-blue-400 transition-colors" aria-label="GitHub">
+                                <i data-lucide="github" class="w-6 h-6"></i>
+                            </a>
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/share/19XPsg3KDu/" target="_blank" class="hover:text-blue-400 transition-colors" aria-label="Facebook">
+                                <i data-lucide="facebook" class="w-6 h-6"></i>
+                            </a>
+                            <!-- Instagram -->
+                            <a href="https://www.instagram.com/ostapenkoaroslav861?igsh=YjZtcHA3Ym1kbWww" target="_blank" class="hover:text-blue-400 transition-colors" aria-label="Instagram">
+                                <i data-lucide="instagram" class="w-6 h-6"></i>
+                            </a>
+                            <!-- Discord -->
+                            <a href="https://discord.gg/KNPPR9QB" target="_blank" class="hover:text-blue-400 transition-colors" aria-label="Discord">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037 13.52 13.52 0 0 0-.574 1.168 18.293 18.293 0 0 0-5.56 0 13.52 13.52 0 0 0-.574-1.168.077.077 0 0 0-.078-.037 19.736 19.736 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.956 2.42-2.157 2.42zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.086 2.157 2.419 0 1.334-.946 2.42-2.157 2.42z"/>
+                                </svg>
+                            </a>
+                            <!-- LinkedIn (Placeholder) -->
+                            <a href="#" class="hover:text-blue-400 transition-colors" aria-label="LinkedIn">
+                                <i data-lucide="linkedin" class="w-6 h-6"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="relative hidden lg:block">
+                        <div class="relative w-full aspect-square max-w-md mx-auto">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-full opacity-20 blur-2xl animate-pulse"></div>
+                            <!-- Updated Profile Image -->
+                            <div class="relative w-full h-full rounded-2xl overflow-hidden border-2 border-slate-700/50 shadow-2xl bg-slate-800 flex items-center justify-center group">
+                                <img src="IMG_20251029_104602.webp" alt="Yaroslav Ostapenko - Junior Frontend Developer Portfolio Photo" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                                <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900 to-transparent">
+                                    <p class="text-white font-medium text-lg">Développeur Frontend Junior</p>
+                                    <p class="text-slate-400 text-sm">HTML • CSS • JS • React</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#about" class="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-400 hover:text-white transition-colors animate-bounce" aria-label="Scroll down">
+                <i data-lucide="chevron-down" class="w-8 h-8"></i>
+            </a>
+        </section>
+
+        <!-- About Section (Changed to Gray) -->
+        <section id="about" class="py-20 lg:py-32 bg-slate-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-16 max-w-2xl">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 tracking-tight">À propos de moi</h2>
+                    <p class="text-lg text-slate-600 leading-relaxed">Apprenez à mieux me connaître</p>
+                    <div class="h-1 w-20 bg-blue-600 rounded-full mt-6"></div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12 items-start">
+                    <div class="space-y-6 text-slate-600 text-lg leading-relaxed">
+                        <p>
+                            Je suis un programmeur de 18 ans ambitieux et motivé, originaire d'Ukraine, actuellement en troisième année de lycée technique. 
+                            J'ai de solides connaissances en technologies web et une expérience pratique en tant que Développeur Frontend Junior, 
+                            acquise lors de mon stage professionnel.
+                        </p>
+                        <p>
+                            Mon objectif principal est de développer davantage mes compétences en travaillant sur des projets innovants sous la direction de spécialistes expérimentés. 
+                            Je me caractérise par un désir d'amélioration continue et la capacité de travailler en équipe.
+                        </p>
+                        
+                        <div class="grid sm:grid-cols-2 gap-6 pt-6">
+                            <!-- Cards changed to White for contrast -->
+                            <div class="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                                <div class="p-2.5 bg-blue-100 text-blue-600 rounded-lg">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 font-medium">Emplacement</p>
+                                    <p class="text-slate-900 font-semibold">Cracovie, Petite-Pologne</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                                <div class="p-2.5 bg-blue-100 text-blue-600 rounded-lg">
+                                    <i data-lucide="globe" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 font-medium">Langues</p>
+                                    <p class="text-slate-900 font-semibold">Polonais (C1), Anglais (B2)</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                                <div class="p-2.5 bg-blue-100 text-blue-600 rounded-lg">
+                                    <i data-lucide="user" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-slate-500 font-medium">Statut</p>
+                                    <p class="text-slate-900 font-semibold">Étudiant / Stagiaire</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="bg-slate-900 rounded-2xl p-8 text-white space-y-8 shadow-2xl">
+                            <h3 class="text-2xl font-bold flex items-center gap-2">
+                                <i data-lucide="award" class="text-yellow-400"></i>
+                                Que fais-je ?
+                            </h3>
+                            <ul class="space-y-4">
+                                <li class="flex gap-4">
+                                    <span class="w-2 h-2 mt-2.5 bg-blue-500 rounded-full shrink-0"></span>
+                                    <p class="text-slate-300">Création de sites web responsives (RWD) avec HTML5, CSS3, JavaScript.</p>
+                                </li>
+                                <li class="flex gap-4">
+                                    <span class="w-2 h-2 mt-2.5 bg-blue-500 rounded-full shrink-0"></span>
+                                    <p class="text-slate-300">Optimisation des performances, Clean Code et SEO.</p>
+                                </li>
+                                <li class="flex gap-4">
+                                    <span class="w-2 h-2 mt-2.5 bg-blue-500 rounded-full shrink-0"></span>
+                                    <p class="text-slate-300">Conception et implémentation de bases de données relationnelles MySQL.</p>
+                                </li>
+                                <li class="flex gap-4">
+                                    <span class="w-2 h-2 mt-2.5 bg-blue-500 rounded-full shrink-0"></span>
+                                    <p class="text-slate-300">Collaboration en équipe sur des solutions web innovantes.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section (Changed to White) -->
+        <section id="skills" class="py-20 lg:py-32 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-16 max-w-2xl">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4 tracking-tight">Compétences</h2>
+                    <p class="text-lg text-slate-600 leading-relaxed">Technologies et outils avec lesquels je travaille</p>
+                    <div class="h-1 w-20 bg-blue-600 rounded-full mt-6"></div>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-12">
+                    
+                    <!-- Left Col: Programming Languages -->
+                    <div class="space-y-8">
+                        <div class="bg-slate-50 p-8 rounded-2xl shadow-sm border border-slate-100">
+                            <h3 class="text-xl font-bold text-slate-800 mb-8 pl-2 border-l-4 border-blue-500">Langages de programmation</h3>
+                            <div class="space-y-6">
+                                
+                                <!-- Skill Item -->
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">HTML5</span>
+                                        <span class="text-sm font-bold text-blue-600">90%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">CSS3</span>
+                                        <span class="text-sm font-bold text-blue-600">85%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">XML</span>
+                                        <span class="text-sm font-bold text-blue-600">85%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">JavaScript (ES6+)</span>
+                                        <span class="text-sm font-bold text-blue-600">80%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 80%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">TypeScript</span>
+                                        <span class="text-sm font-bold text-blue-600">75%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">MySQL</span>
+                                        <span class="text-sm font-bold text-indigo-600">70%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">Python</span>
+                                        <span class="text-sm font-bold text-indigo-600">65%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">PHP</span>
+                                        <span class="text-sm font-bold text-indigo-600">60%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">C#</span>
+                                        <span class="text-sm font-bold text-indigo-600">60%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 60%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">C++</span>
+                                        <span class="text-sm font-bold text-indigo-600">55%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 55%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">C</span>
+                                        <span class="text-sm font-bold text-indigo-600">50%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-indigo-600 h-2.5 rounded-full" style="width: 50%"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Technical Knowledge & Concepts -->
+                        <div class="bg-slate-50 p-8 rounded-2xl shadow-sm border border-slate-100">
+                            <h3 class="text-xl font-bold text-slate-800 mb-8 pl-2 border-l-4 border-amber-500">Connaissances techniques et concepts</h3>
+                            <div class="space-y-6">
+                                
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">RWD (Responsive Web Design)</span>
+                                        <span class="text-sm font-bold text-amber-500">95%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-amber-500 h-2.5 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">SEO & SEM</span>
+                                        <span class="text-sm font-bold text-amber-500">85%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-amber-500 h-2.5 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">Design UI/UX</span>
+                                        <span class="text-sm font-bold text-amber-500">80%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-amber-500 h-2.5 rounded-full" style="width: 80%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">SGBD (Systèmes de Gestion de Bases de Données)</span>
+                                        <span class="text-sm font-bold text-amber-500">75%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-amber-500 h-2.5 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">Réseaux informatiques</span>
+                                        <span class="text-sm font-bold text-amber-500">70%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-amber-500 h-2.5 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                </div>
+
+                                <div class="skill-item">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="font-semibold text-slate-700">Algorithmes et structures de données</span>
+                                        <span class="text-sm font-bold text-amber-500">65%</span>
+                                    </div>
+                                    <div class="w-full bg-white rounded-full h-2.5">
+                                        <div class="bg-amber-500 h-2.5 rounded-full" style="width: 65%"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Libraries, Tools, Languages -->
+                    <div class="space-y-8">
+                        
+                        <!-- Libraries & Frameworks (Card changed to Gray) -->
+                         <div class="bg-slate-50 p-8 rounded-2xl sha

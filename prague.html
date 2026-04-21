@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Yaroslav Ostapenko - Galeria Zdjęć ze Sliderem | Podróż do Pragi</title>
+    <meta name="description" content="Yaroslav Ostapenko - zobacz moją autorską galerię zdjęć z podróży do Pragi w formie interaktywnego slidera. Architektura, widoki i niezapomniane chwile w stolicy Czech.">
+    <!-- Główne słowo kluczowe na pierwszym miejscu -->
+    <meta name="keywords" content="Yaroslav Ostapenko, Praga, podróż do Pragi, galeria zdjęć, slider, portfolio, Czechy, Junior Frontend Developer">
+    <meta name="author" content="Yaroslav Ostapenko">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://jaroslawostapenko.mqttwebs.com/prague.html">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" sizes="192x192" href="favi.ico">
+    
+    <!-- Swiper CSS (Biblioteka do Slidera) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Personalizacja wyglądu slidera */
+        .swiper-button-next, .swiper-button-prev {
+            color: #ffffff;
+            background-color: rgba(37, 99, 235, 0.8); /* bg-blue-600 z przezroczystością */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            backdrop-filter: blur(4px);
+        }
+        .swiper-button-next:after, .swiper-button-prev:after {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background-color: rgba(37, 99, 235, 1);
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+        .swiper-pagination-bullet {
+            background: #cbd5e1;
+            opacity: 1;
+        }
+        .swiper-pagination-bullet-active {
+            background: #2563eb; /* bg-blue-600 */
+            width: 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased font-['Inter'] flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 group">
+                    <div class="bg-blue-600 p-2 rounded-lg text-white group-hover:scale-110 transition-transform">
+                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900 transition-colors">
+                        Wróć do <span class="text-blue-600">Portfolio</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="index.html#projects" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Projekty</a>
+                    <a href="index.html#contact" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-all hover:shadow-lg hover:-translate-y-0.5">
+                        Skontaktuj się
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-32 pb-20">
+        <!-- Hero Section -->
+        <section class="container mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center max-w-4xl">
+            <span class="inline-block py-1 px-3 mb-4 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 text-sm font-medium tracking-wide flex items-center justify-center gap-2 w-max mx-auto">
+                <i data-lucide="camera" class="w-4 h-4"></i> Galeria Fotografii
+            </span>
+            <!-- SEO H1: Główne słowo kluczowe na początku -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 tracking-tight leading-tight mb-6">
+                Yaroslav Ostapenko <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                    Podróż do Pragi
+                </span>
+            </h1>
+            <p class="text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+                Zapraszam do obejrzenia mojej prywatnej fotorelacji z niezwykłej podróży. Przesuwaj zdjęcia w poniższym sliderze, aby odkryć uroki Pragi.
+            </p>
+        </section>
+
+        <!-- Slider Section -->
+        <section class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+            <!-- Swiper Container -->
+            <div class="swiper pragueSwiper w-full h-[500px] sm:h-[600px] lg:h-[750px] rounded-2xl overflow-hidden shadow-2xl border-4 border-white bg-slate-900">
+                <div class="swiper-wrapper">
+                    
+                    <!-- Wszystkie 15 zdjęć dodanych do slidera. Zastosowano object-contain, by w pełni pokazać portrety (selfie) bez ich ucinania -->
+                    
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <!-- Tło z rozmytym obrazem dla lepszego efektu (Glassmorphism) -->
+                        <div class="absolute inset-0 bg-[url('praga-1.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-1.jpg" alt="Yaroslav Ostapenko na tle nieba w Pradze" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+                    
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-2.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-2.jpg" alt="Yaroslav Ostapenko przy zabytkowej kamienicy w Pradze" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+                    
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-3.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-3.jpg" alt="Yaroslav Ostapenko przed białym pałacem w Pradze" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+                    
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-4.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-4.jpg" alt="Yaroslav Ostapenko - selfie w Czechach" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-5.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-5.jpg" alt="Yaroslav Ostapenko - podróż po Pradze" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-6.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-6.jpg" alt="Yaroslav Ostapenko w historycznym centrum Pragi" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-7.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-7.jpg" alt="Yaroslav Ostapenko przed zabytkami" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-8.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-8.jpg" alt="Yaroslav Ostapenko wycieczka do Pragi" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-9.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-9.jpg" alt="Yaroslav Ostapenko w stolicy Czech" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-10.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-10.jpg" alt="Yaroslav Ostapenko na tle kolorowych kamienic w Pradze" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-11.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-11.jpg" alt="Yaroslav Ostapenko - selfie Praga" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-12.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-12.jpg" alt="Yaroslav Ostapenko podczas jesiennej wycieczki" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-13.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-13.jpg" alt="Yaroslav Ostapenko na tle transportu publicznego w Pradze" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-14.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-14.jpg" alt="Yaroslav Ostapenko zwiedzanie Pragi" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                    <div class="swiper-slide flex justify-center items-center relative">
+                        <div class="absolute inset-0 bg-[url('praga-15.jpg')] bg-cover bg-center blur-xl opacity-30"></div>
+                        <img src="praga-15.jpg" alt="Yaroslav Ostapenko przed piękną architekturą w Pradze" class="w-full h-full object-contain relative z-10" loading="lazy">
+                    </div>
+
+                </div>
+                
+                <!-- Strzałki nawigacji -->
+                <div class="swiper-button-next hidden sm:flex"></div>
+                <div class="swiper-button-prev hidden sm:flex"></div>
+                
+                <!-- Paginacja (kropki) -->
+                <div class="swiper-pagination pb-2"></div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <p class="text-sm text-slate-500 font-medium">Użyj strzałek lub przesuń palcem, aby nawigować pomiędzy zdjęciami.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 py-8 border-t border-slate-800 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">
+                &copy; 2026 Yaroslav Ostapenko. Wszelkie prawa zastrzeżone.
+            </p>
+            <p class="text-slate-600 text-xs mt-2">
+                Zbudowane z pasją do programowania i podróży.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <!-- Swiper JS Script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- Inicjalizacja Slidera -->
+    <script>
+        const swiper = new Swiper('.pragueSwiper', {
+            // Ustawienia podstawowe
+            loop: true, // slider działa w nieskończoność
+            speed: 600, // szybkość animacji przejścia w ms
+            grabCursor: true, // pokazuje "łapkę" po najechaniu, ułatwia UX
+            
+            // Autoplay - opcjonalnie automatycznie przesuwa zdjęcia
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            
+            // Animacja Fade dla ładniejszego przejścia zdjęć portretowych (możesz to usunąć by mieć klasyczne przesuwanie)
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+
+            // Paginacja - kropeczki na dole
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                dynamicBullets: true, // ułatwia wyświetlanie dużej liczby kropek (masz 15 zdjęć)
+            },
+
+            // Strzałki
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            
+            // Zapewnienie dostępności używania klawiatury
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+            },
+        });
+    </script>
+</body>
+</html>

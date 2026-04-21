@@ -1,78 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Головна сторінка та мовні версії -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Main Homepage (Default) -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jaroslawostapenko.mqttwebs.com/en.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jaroslawostapenko.mqttwebs.com/ru.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://jaroslawostapenko.mqttwebs.com/uk.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jaroslawostapenko.mqttwebs.com/" />
   </url>
+
+  <!-- English Homepage -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/en.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jaroslawostapenko.mqttwebs.com/en.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jaroslawostapenko.mqttwebs.com/ru.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://jaroslawostapenko.mqttwebs.com/uk.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jaroslawostapenko.mqttwebs.com/" />
   </url>
+
+  <!-- Russian Homepage -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/ru.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jaroslawostapenko.mqttwebs.com/en.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jaroslawostapenko.mqttwebs.com/ru.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://jaroslawostapenko.mqttwebs.com/uk.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jaroslawostapenko.mqttwebs.com/" />
   </url>
+
+  <!-- Ukrainian Homepage -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/uk.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jaroslawostapenko.mqttwebs.com/en.html" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://jaroslawostapenko.mqttwebs.com/ru.html" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://jaroslawostapenko.mqttwebs.com/uk.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://jaroslawostapenko.mqttwebs.com/" />
   </url>
 
-  <!-- Проєкти -->
+  <!-- Projects -->
+  
+  <!-- Editor Project -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/editor.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Pong Project -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/pong.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Loto Project -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/loto.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Uno Project -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/uno.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Taxi Project -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/taxi.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Checkers Project -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/checkers.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Poker Project -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/poker/index.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Monopoly Project -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/monopoly/index.html</loc>
     <lastmod>2026-04-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
 </urlset>

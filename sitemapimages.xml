@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Strona Główna -->
   <url>
     <loc>https://jaroslawostapenko.mqttwebs.com/</loc>
     <image:image>
@@ -8,44 +10,100 @@
       <image:title>Yaroslav Ostapenko - Junior Frontend Developer</image:title>
       <image:caption>Portfolio photo of Yaroslav Ostapenko, Junior Frontend Developer from Kraków</image:caption>
     </image:image>
+  </url>
+
+  <!-- Podstrona: Galeria Praga -->
+  <url>
+    <loc>https://jaroslawostapenko.mqttwebs.com/prague.html</loc>
+    
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/1.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-1.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 1</image:title>
+      <image:caption>Yaroslav Ostapenko na tle nieba w Pradze</image:caption>
     </image:image>
+    
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/2.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-2.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 2</image:title>
+      <image:caption>Yaroslav Ostapenko przy zabytkowej kamienicy w Pradze</image:caption>
     </image:image>
+    
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/4.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-3.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 3</image:title>
+      <image:caption>Yaroslav Ostapenko przed białym pałacem w Pradze</image:caption>
     </image:image>
+    
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/5.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-4.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 4</image:title>
+      <image:caption>Yaroslav Ostapenko - selfie w Czechach</image:caption>
     </image:image>
+
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/7.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-5.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 5</image:title>
+      <image:caption>Yaroslav Ostapenko - podróż po Pradze</image:caption>
     </image:image>
+
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/FB_IMG_1776774698677.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-6.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 6</image:title>
+      <image:caption>Yaroslav Ostapenko w historycznym centrum Pragi</image:caption>
     </image:image>
+
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/FB_IMG_1776774694326.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-7.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 7</image:title>
+      <image:caption>Yaroslav Ostapenko przed zabytkami</image:caption>
     </image:image>
+
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/9.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-8.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 8</image:title>
+      <image:caption>Yaroslav Ostapenko wycieczka do Pragi</image:caption>
     </image:image>
+
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/8.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-9.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 9</image:title>
+      <image:caption>Yaroslav Ostapenko w stolicy Czech</image:caption>
     </image:image>
+
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/FB_IMG_1776774701014.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-10.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 10</image:title>
+      <image:caption>Yaroslav Ostapenko na tle kolorowych kamienic w Pradze</image:caption>
     </image:image>
+
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/FB_IMG_1776774703550.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-11.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 11</image:title>
+      <image:caption>Yaroslav Ostapenko - selfie Praga</image:caption>
     </image:image>
+
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/FB_IMG_1776774719647.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-12.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 12</image:title>
+      <image:caption>Yaroslav Ostapenko podczas jesiennej wycieczki</image:caption>
     </image:image>
+
     <image:image>
-      <image:loc>https://jaroslawostapenko.mqttwebs.com/FB_IMG_1776774715283.jpg</image:loc>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-13.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 13</image:title>
+      <image:caption>Yaroslav Ostapenko na tle transportu publicznego w Pradze</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-14.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 14</image:title>
+      <image:caption>Yaroslav Ostapenko zwiedzanie Pragi</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://jaroslawostapenko.mqttwebs.com/praga-15.jpg</image:loc>
+      <image:title>Yaroslav Ostapenko - Praga 15</image:title>
+      <image:caption>Yaroslav Ostapenko przed piękną architekturą w Pradze</image:caption>
     </image:image>
   </url>
 </urlset>

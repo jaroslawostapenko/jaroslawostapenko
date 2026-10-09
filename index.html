@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -101,6 +99,26 @@
     
     <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Poprawka: zapobiega zlewaniu się kolorów linków z tłem po przescrollowaniu menu */
+        #main-header.bg-white .nav-link,
+        #main-header:not(.bg-transparent) .nav-link {
+            color: #475569 !important; /* text-slate-600 */
+        }
+        #main-header.bg-white .nav-link:hover,
+        #main-header:not(.bg-transparent) .nav-link:hover {
+            color: #2563eb !important; /* hover:text-blue-600 */
+        }
+        #main-header.bg-white #logo-text,
+        #main-header:not(.bg-transparent) #logo-text {
+            color: #0f172a !important; /* text-slate-900 */
+        }
+        #main-header.bg-white #menu-icon,
+        #main-header:not(.bg-transparent) #menu-icon {
+            color: #475569 !important;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 antialiased font-['Inter']">
 
@@ -110,7 +128,7 @@
             <div class="flex items-center justify-between">
                 <!-- Logo -->
                 <a href="#" class="flex items-center gap-2 group">
-                    <div class="bg-blue-600 p-2 rounded-lg text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg shadow-blue-600/20">
+                    <div class="bg-blue-600 p-2 rounded-lg text-white group-hover:scale-110 transition-transform">
                         <i data-lucide="code-2" class="w-6 h-6"></i>
                     </div>
                     <span id="logo-text" class="text-xl font-bold tracking-tight text-slate-900 lg:text-white transition-colors">
@@ -120,57 +138,34 @@
 
                 <!-- Desktop Nav -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="#hero" class="nav-link relative text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">Start</a>
-                    <a href="#about" class="nav-link relative text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">O mnie</a>
-                    <a href="#skills" class="nav-link relative text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">Umiejętności</a>
-                    <a href="#projects" class="nav-link relative text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">Projekty</a>
-                    <a href="#experience" class="nav-link relative text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">Doświadczenie</a>
-                    <a href="#certificates" class="nav-link relative text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full">Certyfikaty</a>
-                    <a href="#contact" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5">
+                    <a href="#hero" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Start</a>
+                    <a href="#about" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">O mnie</a>
+                    <a href="#skills" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Umiejętności</a>
+                    <a href="#projects" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Projekty</a>
+                    <a href="#experience" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Doświadczenie</a>
+                    <a href="#certificates" class="nav-link text-sm font-medium text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors">Certyfikaty</a>
+                    <a href="#contact" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-all hover:shadow-lg hover:-translate-y-0.5">
                         Zatrudnij mnie
                     </a>
                 </nav>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 hover:text-blue-600 lg:text-slate-200 lg:hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
-                    <i data-lucide="menu" id="menu-icon" class="w-7 h-7"></i>
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 transition-colors" aria-label="Toggle menu">
+                    <i data-lucide="menu" id="menu-icon" class="lg:text-white"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Nav Menu (Hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-2xl transition-all duration-300 origin-top rounded-b-3xl">
-            <nav class="flex flex-col p-6 space-y-2">
-                <a href="#hero" class="mobile-link group flex items-center justify-between text-slate-600 hover:text-blue-600 font-medium py-3 px-4 rounded-xl hover:bg-blue-50/80 transition-all">
-                    <span>Start</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 text-blue-600"></i>
-                </a>
-                <a href="#about" class="mobile-link group flex items-center justify-between text-slate-600 hover:text-blue-600 font-medium py-3 px-4 rounded-xl hover:bg-blue-50/80 transition-all">
-                    <span>O mnie</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 text-blue-600"></i>
-                </a>
-                <a href="#skills" class="mobile-link group flex items-center justify-between text-slate-600 hover:text-blue-600 font-medium py-3 px-4 rounded-xl hover:bg-blue-50/80 transition-all">
-                    <span>Umiejętności</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 text-blue-600"></i>
-                </a>
-                <a href="#projects" class="mobile-link group flex items-center justify-between text-slate-600 hover:text-blue-600 font-medium py-3 px-4 rounded-xl hover:bg-blue-50/80 transition-all">
-                    <span>Projekty</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 text-blue-600"></i>
-                </a>
-                <a href="#experience" class="mobile-link group flex items-center justify-between text-slate-600 hover:text-blue-600 font-medium py-3 px-4 rounded-xl hover:bg-blue-50/80 transition-all">
-                    <span>Doświadczenie</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 text-blue-600"></i>
-                </a>
-                <a href="#certificates" class="mobile-link group flex items-center justify-between text-slate-600 hover:text-blue-600 font-medium py-3 px-4 rounded-xl hover:bg-blue-50/80 transition-all">
-                    <span>Certyfikaty</span>
-                    <i data-lucide="chevron-right" class="w-4 h-4 opacity-0 -translate-x-2 transition-all group-hover:opacity-100 group-hover:translate-x-0 text-blue-600"></i>
-                </a>
-                <div class="pt-4 mt-2 border-t border-slate-100">
-                    <a href="#contact" class="mobile-link flex items-center justify-center gap-2 w-full text-white bg-blue-600 hover:bg-blue-700 font-semibold py-3.5 px-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 active:scale-95">
-                        Zatrudnij mnie
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </a>
-                </div>
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white border-b border-slate-100 shadow-xl transition-all duration-300 origin-top">
+            <nav class="flex flex-col p-4 space-y-4">
+                <a href="#hero" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Start</a>
+                <a href="#about" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">O mnie</a>
+                <a href="#skills" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Umiejętności</a>
+                <a href="#projects" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Projekty</a>
+                <a href="#experience" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Doświadczenie</a>
+                <a href="#certificates" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Certyfikaty</a>
+                <a href="#contact" class="mobile-link text-slate-600 hover:text-blue-600 font-medium py-2 px-4 rounded-lg hover:bg-blue-50 transition-colors">Kontakt</a>
             </nav>
         </div>
     </header>
@@ -999,6 +994,7 @@
                             </a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -1160,6 +1156,7 @@
 
                 <!-- Grid -->
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
                     <!-- HackerRank SQL Basic -->
                     <div class="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                         <div class="p-6 flex flex-col h-full">
